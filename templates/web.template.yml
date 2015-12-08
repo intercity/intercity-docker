@@ -1,0 +1,12 @@
+env:
+  RAILS_ENV: 'production'
+  HALLO: 'testing-it-out'
+params:
+  home: /var/www/todo
+  upload_size: 10m
+run:
+  - exec:
+      cd: $home
+      hook: code
+      cmd:
+        - echo $HALLO
