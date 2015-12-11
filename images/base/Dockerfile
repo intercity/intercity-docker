@@ -15,11 +15,13 @@ RUN apt-get -y upgrade &&\
     apt-get -y install build-essential git curl wget \
       libxslt-dev libcurl4-openssl-dev \
       libssl-dev libyaml-dev libtool \
-      libxml2-dev \
+      libxml2-dev redis-server \
       postgresql-9.3 postgresql-client-9.3 \
       postgresql-contrib-9.3 libpq-dev libreadline-dev \
       nginx vim nodejs openssh-server runit &&\
-    mkdir -p /etc/runit/1.d
+    mkdir -p /etc/runit/1.d &&\
+    locale-gen en_US
+
 
 # Install ruby 2.2.3
 RUN echo 'gem: --no-document' >> /usr/local/etc/gemrc &&\
