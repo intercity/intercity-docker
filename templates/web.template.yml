@@ -25,6 +25,7 @@ run:
         exec 2>&1
         # redis
         # postgres
+        # sidekiq
         cd $home
         chown -R intercity:www-data /shared/log/rails
         HOME=/home/intercity USER=intercity exec chpst -u intercity:www-data -U intercity:www-data bundle exec puma -C config/puma.rb

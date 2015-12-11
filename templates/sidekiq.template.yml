@@ -1,24 +1,24 @@
 run:
   - file:
-    path: /etc/service/sidekiq/run
-    chmod: "+x"
-    contents: |
-      #!/bin/sh
-      cd /var/www/intercity/
-      exec 2>&1
-      exec chpst -usidekiq bundle exec sidekiq -e production -P /var/www/intercity/tmp/sidekiq.pid
+      path: /etc/service/sidekiq/run
+      chmod: "+x"
+      contents: |
+        #!/bin/sh
+        cd /var/www/intercity/
+        exec 2>&1
+        HOME=/home/intercity USER=intercity exec chpst -u intercity:www-data -U intercity:www-data bundle exec sidekiq -e production -P /var/www/intercity/tmp/sidekiq.pid
   - file:
-    path: /etc/runit/3.d/11-sidekiq
-    chmod: "+x"
-    contents: |
-      #!/bin/bash
-      sv stop sidekiq
+      path: /etc/runit/3.d/11-sidekiq
+      chmod: "+x"
+      contents: |
+        #!/bin/bash
+        sv stop sidekiq
   - exec:
-    cmd: echo sidekiq installed
-    hook: sidekiq
+      cmd: echo sidekiq installed
+      hook: sidekiq
 hooks:
   after_code:
     - replace:
-      filename: /etc/service/puma/run
-      from: "# sidekiq"
-      to: sv start sidekiq || exit 1
+        filename: /etc/service/puma/run
+        from: "# sidekiq"
+        to: sv start sidekiq || exit 1

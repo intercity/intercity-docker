@@ -129,6 +129,11 @@ usage () {
   exit 1
 }
 
+docker_version=($($docker_path --version))
+docker_version=${test[2]//,/}
+
+restart_policy=${restart_policy:---restart=always}
+
 set_existing_container(){
   existing=`$docker_path ps -a | awk '{ print $1, $(NF) }' | grep " $config$" | awk '{ print $1 }'`
 }
