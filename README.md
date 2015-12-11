@@ -12,3 +12,12 @@ This is still in heavy development, do **not** run in production
 1. Run `./launcher bootstrap app`
 1. Start Intercity with `./launcher start app`
 1. Go to the IP of your server in a browser, and see Intercity running!
+
+## Credits
+
+This docker system is heavily inspired (And parts are copied) from the
+[Discourse docker image](https://github.com/discourse/discourse_docker)
+
+## License
+
+MIT
