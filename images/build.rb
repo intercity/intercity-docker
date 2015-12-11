@@ -4,8 +4,8 @@ require 'pty'
 
 $version = "0.1.0"
 
-$base_image = "todo/base:#{$version}"
-$image = "todo/todo:#{$version}"
+$base_image = "intercity/base:#{$version}"
+$image = "intercity/intercity:#{$version}"
 
 def run(command)
   lines = []
@@ -31,4 +31,4 @@ def build(path, tag)
 end
 
 build "base", $base_image
-build "todo", $image
+build "intercity", $image

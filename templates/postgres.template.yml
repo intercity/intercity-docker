@@ -3,8 +3,8 @@ params:
   db_shared_buffers: "256MB"
   db_work_mem: "10MB"
   db_default_text_search_config: "pg_catalog.english"
-  db_name: todo
-  db_user: todo
+  db_name: intercity
+  db_user: intercity
   db_wal_level: minimal
   db_max_wal_senders: 0
   db_checkpoint_segments: 6

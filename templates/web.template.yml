@@ -2,10 +2,10 @@ env:
   RAILS_ENV: 'production'
   RACK_ENV: 'production'
   DB_SOCKET: /var/run/postgresql
-  DB_NAME: todo
+  DB_NAME: intercity
   SECRET_KEY_BASE: "superdupersecrettokenthatneedstochange"
 params:
-  home: /var/www/todo
+  home: /var/www/intercity
   upload_size: 10m
 
 run:
@@ -26,8 +26,8 @@ run:
         # redis
         # postgres
         cd $home
-        chown -R todo:www-data /shared/log/rails
-        HOME=/home/todo USER=todo exec chpst -u todo:www-data -U todo:www-data bundle exec puma -C config/puma.rb
+        chown -R intercity:www-data /shared/log/rails
+        HOME=/home/intercity USER=intercity exec chpst -u intercity:www-data -U intercity:www-data bundle exec puma -C config/puma.rb
 
   - file:
      path: /etc/service/nginx/run
@@ -70,11 +70,11 @@ run:
         - bash -c "ln    -s           /shared/log/rails/{production,production_errors,puma.stdout,puma.stderr}.log $home/log"
         - bash -c "mkdir -p           /shared/{uploads,backups}"
         - bash -c "ln    -s           /shared/{uploads,backups} $home/public"
-        - chown -R todo:www-data /shared/log/rails /shared/uploads /shared/backups
+        - chown -R intercity:www-data /shared/log/rails /shared/uploads /shared/backups
 
   - exec:
       cmd:
-        - "cp $home/config/nginx.sample.conf /etc/nginx/conf.d/todo.conf"
+        - "cp $home/config/nginx.sample.conf /etc/nginx/conf.d/intercity.conf"
         - "rm /etc/nginx/sites-enabled/default"
         - "mkdir -p /var/nginx/cache"
 
@@ -84,19 +84,19 @@ run:
       to: daemon off;
 
   - replace:
-      filename: "/etc/nginx/conf.d/todo.conf"
+      filename: "/etc/nginx/conf.d/intercity.conf"
       from: /upstream[^\}]+\}/m
-      to: "upstream todo {
+      to: "upstream intercity {
         server 127.0.0.1:3000;
       }"
 
   - replace:
-      filename: "/etc/nginx/conf.d/todo.conf"
+      filename: "/etc/nginx/conf.d/intercity.conf"
       from: /server_name.+$/
       to: server_name _ ;
 
   - replace:
-      filename: "/etc/nginx/conf.d/todo.conf"
+      filename: "/etc/nginx/conf.d/intercity.conf"
       from: /client_max_body_size.+$/
       to: client_max_body_size $upload_size ;
 
@@ -110,15 +110,15 @@ run:
       cmd:
         # ensure we are on latest bundler
         - gem update bundler
-        - chown -R todo $home
+        - chown -R intercity $home
 
   - exec:
       cd: $home
       hook: bundle_exec
       cmd:
-        - su todo -c 'bundle install --deployment --verbose --without test --without development'
-        - su todo -c 'bundle exec rake db:migrate'
-        - su todo -c 'bundle exec rake assets:precompile'
+        - su intercity -c 'bundle install --deployment --verbose --without test --without development'
+        - su intercity -c 'bundle exec rake db:migrate'
+        - su intercity -c 'bundle exec rake assets:precompile'
 
   - file:
      path: /usr/local/bin/rails
@@ -126,14 +126,14 @@ run:
      contents: |
        #!/bin/bash
        # If they requested a console, load pry instead
-       (cd /var/www/todo && RAILS_ENV=production sudo -H -E -u todo bundle exec bin/rails "$@")
+       (cd /var/www/intercity && RAILS_ENV=production sudo -H -E -u intercity bundle exec bin/rails "$@")
 
   - file:
      path: /usr/local/bin/rake
      chmod: +x
      contents: |
        #!/bin/bash
-       (cd /var/www/todo && RAILS_ENV=production sudo -H -E -u todo bundle exec bin/rake "$@")
+       (cd /var/www/intercity && RAILS_ENV=production sudo -H -E -u intercity bundle exec bin/rake "$@")
 
   - file:
      path: /etc/update-motd.d/10-web
@@ -156,13 +156,13 @@ run:
         fi
         if [[ ! -d /shared/log/rails ]]; then
           mkdir -p /shared/log/rails
-          chown -R todo:www-data /shared/log/rails
+          chown -R intercity:www-data /shared/log/rails
         fi
         if [[ ! -d /shared/uploads ]]; then
           mkdir -p /shared/uploads
-          chown -R todo:www-data /shared/uploads
+          chown -R intercity:www-data /shared/uploads
         fi
         if [[ ! -d /shared/backups ]]; then
           mkdir -p /shared/backups
-          chown -R todo:www-data /shared/backups
+          chown -R intercity:www-data /shared/backups
         fi

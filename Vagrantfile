@@ -32,7 +32,7 @@ Vagrant.configure(2) do |config|
       apt-get -y install ruby
       wget -qO- https://get.docker.com/ | sh
 
-      ln -s /vagrant /var/todo
+      cp -r /vagrant /var/intercity
     EOF
   end
 end

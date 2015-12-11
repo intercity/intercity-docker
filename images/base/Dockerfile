@@ -1,4 +1,4 @@
-# NAME:     todo_base
+# NAME:     intercity_base
 # VERSION:  0.1.0
 
 FROM ubuntu:14.04

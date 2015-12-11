@@ -15,10 +15,10 @@ params:
 ## These containers are stateless, all data is stored in /shared
 volumes:
   - volume:
-      host: /var/todo/shared/
+      host: /var/intercity/shared/
       guest: /shared
   - volume:
-      host: /var/todo/shared/log/var-log
+      host: /var/intercity/shared/log/var-log
       guest: /var/log
 
 run:
