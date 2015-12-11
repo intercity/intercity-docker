@@ -193,7 +193,7 @@ RUBY
 }
 
 set_volumes() {
-  volumes=`cat $config_file |$docker_path run $user_args --rm -i -a stdin -a stdout $image ruby -e \ "require 'yaml'; puts yaml.load(stdin.readlines.join)['volumes'].map{|v| '-v ' << v['volume']['host'] << ':' << v['volume']['guest'] << ' '}.join"`
+  volumes=`cat $config_file |$docker_path run $user_args --rm -i -a stdin -a stdout $image ruby -e \ "require 'yaml'; puts YAML.load(STDIN.readlines.join)['volumes'].map{|v| '-v ' << v['volume']['host'] << ':' << v['volume']['guest'] << ' '}.join"`
 }
 
 set_links() {
@@ -245,6 +245,7 @@ run_start() {
      echo "Nothing to do, your container has already started!"
      exit 1
    fi
+
 
    existing=`$docker_path ps -a | awk '{ print $1, $(NF) }' | grep " $config$" | awk '{ print $1 }'`
    if [ ! -z $existing ]
@@ -317,6 +318,58 @@ case "$command" in
   enter)
     exec $docker_path exec -it $config /bin/bash
     ;;
+  rebuild)
+      if [ "$(git symbolic-ref --short HEAD)" == "master" ]; then
+        echo "Ensuring $app_name docker is up to date"
+
+        git remote update
+
+        LOCAL=$(git rev-parse @)
+        REMOTE=$(git rev-parse @{u})
+        BASE=$(git merge-base @ @{u})
+
+        if [ $LOCAL = $REMOTE ]; then
+          echo "$app_name Docker is up-to-date"
+
+        elif [ $LOCAL = $BASE ]; then
+          echo "Updating $app_name Docker"
+          git pull || (echo 'failed to update' && exit 1)
+          exec /bin/bash $0 $@
+
+        elif [ $REMOTE = $BASE ]; then
+          echo "Your version of $app_name Docker is ahead of origin"
+
+        else
+          echo "$app_name Docker has diverged source, this is only expected in Dev mode"
+        fi
+
+      fi
+
+      set_existing_container
+
+      if [ ! -z $existing ]
+        then
+          echo "Stopping old container"
+          (
+            set -x
+            $docker_path stop -t 10 $config
+          )
+      fi
+
+      run_bootstrap
+
+      if [ ! -z $existing ]
+        then
+          echo "Removing old container"
+          (
+            set -x
+            $docker_path rm $config
+          )
+      fi
+
+      run_start
+      exit 0
+      ;;
   ssh)
     existing=`$docker_path ps | awk '{ print $1, $(NF) }' | grep " $config$" | awk '{ print $1 }'`
 

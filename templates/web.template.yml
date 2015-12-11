@@ -1,12 +1,168 @@
 env:
   RAILS_ENV: 'production'
-  HALLO: 'testing-it-out'
+  RACK_ENV: 'production'
+  DB_SOCKET: /var/run/postgresql
+  DB_NAME: todo
+  SECRET_KEY_BASE: "superdupersecrettokenthatneedstochange"
 params:
   home: /var/www/todo
   upload_size: 10m
+
 run:
+  - file:
+      path: /etc/runit/1.d/ensure-web-nginx-read
+      chmod: "+x"
+      contents: |
+        #!/bin/bash
+        chgrp -R www-data /var/log/nginx
+        chgrp www-data /var/log/nginx
+
+  - file:
+     path: /etc/service/puma/run
+     chmod: "+x"
+     contents: |
+        #!/bin/bash
+        exec 2>&1
+        # redis
+        # postgres
+        cd $home
+        chown -R todo:www-data /shared/log/rails
+        HOME=/home/todo USER=todo exec chpst -u todo:www-data -U todo:www-data bundle exec puma -C config/puma.rb
+
+  - file:
+     path: /etc/service/nginx/run
+     chmod: "+x"
+     contents: |
+        #!/bin/sh
+        exec 2>&1
+        mkdir -p /var/log/nginx
+        exec /usr/sbin/nginx
+
+  - file:
+     path: /etc/runit/3.d/01-nginx
+     chmod: "+x"
+     contents: |
+       #!/bin/bash
+       sv stop nginx
+
+  - file:
+     path: /etc/runit/3.d/02-puma
+     chmod: "+x"
+     contents: |
+       #!/bin/bash
+       sv stop puma
+
   - exec:
       cd: $home
       hook: code
       cmd:
-        - echo $HALLO
+        - git reset --hard
+        - git clean -f
+        - git remote set-branches --add origin master
+        - git pull
+        - git fetch origin $version
+        - git checkout $version
+        - mkdir -p tmp/pids
+        - mkdir -p tmp/sockets
+        - touch tmp/.gitkeep
+        - mkdir -p                    /shared/log/rails
+        - bash -c "touch -a           /shared/log/rails/{production,production_errors,puma.stdout,puma.stderr}.log"
+        - bash -c "ln    -s           /shared/log/rails/{production,production_errors,puma.stdout,puma.stderr}.log $home/log"
+        - bash -c "mkdir -p           /shared/{uploads,backups}"
+        - bash -c "ln    -s           /shared/{uploads,backups} $home/public"
+        - chown -R todo:www-data /shared/log/rails /shared/uploads /shared/backups
+
+  - exec:
+      cmd:
+        - "cp $home/config/nginx.sample.conf /etc/nginx/conf.d/todo.conf"
+        - "rm /etc/nginx/sites-enabled/default"
+        - "mkdir -p /var/nginx/cache"
+
+  - replace:
+      filename: /etc/nginx/nginx.conf
+      from: pid /run/nginx.pid;
+      to: daemon off;
+
+  - replace:
+      filename: "/etc/nginx/conf.d/todo.conf"
+      from: /upstream[^\}]+\}/m
+      to: "upstream todo {
+        server 127.0.0.1:3000;
+      }"
+
+  - replace:
+      filename: "/etc/nginx/conf.d/todo.conf"
+      from: /server_name.+$/
+      to: server_name _ ;
+
+  - replace:
+      filename: "/etc/nginx/conf.d/todo.conf"
+      from: /client_max_body_size.+$/
+      to: client_max_body_size $upload_size ;
+
+  - exec:
+      cmd: echo "done configuring web"
+      hook: web_config
+
+  - exec:
+      cd: $home
+      hook: web
+      cmd:
+        # ensure we are on latest bundler
+        - gem update bundler
+        - chown -R todo $home
+
+  - exec:
+      cd: $home
+      hook: bundle_exec
+      cmd:
+        - su todo -c 'bundle install --deployment --verbose --without test --without development'
+        - su todo -c 'bundle exec rake db:migrate'
+        - su todo -c 'bundle exec rake assets:precompile'
+
+  - file:
+     path: /usr/local/bin/rails
+     chmod: +x
+     contents: |
+       #!/bin/bash
+       # If they requested a console, load pry instead
+       (cd /var/www/todo && RAILS_ENV=production sudo -H -E -u todo bundle exec bin/rails "$@")
+
+  - file:
+     path: /usr/local/bin/rake
+     chmod: +x
+     contents: |
+       #!/bin/bash
+       (cd /var/www/todo && RAILS_ENV=production sudo -H -E -u todo bundle exec bin/rake "$@")
+
+  - file:
+     path: /etc/update-motd.d/10-web
+     chmod: +x
+     contents: |
+       #!/bin/bash
+       echo
+       echo Use: rails or rake to execute commands in production
+       echo
+
+  - file:
+      path: /etc/runit/1.d/00-ensure-links
+      chmod: +x
+      contents: |
+        #!/bin/bash
+        if [[ ! -L /var/lib/logrotate ]]; then
+          rm -fr /var/lib/logrotate
+          mkdir -p /shared/state/logrotate
+          ln -s /shared/state/logrotate /var/lib/logrotate
+        fi
+        if [[ ! -d /shared/log/rails ]]; then
+          mkdir -p /shared/log/rails
+          chown -R todo:www-data /shared/log/rails
+        fi
+        if [[ ! -d /shared/uploads ]]; then
+          mkdir -p /shared/uploads
+          chown -R todo:www-data /shared/uploads
+        fi
+        if [[ ! -d /shared/backups ]]; then
+          mkdir -p /shared/backups
+          chown -R todo:www-data /shared/backups
+        fi
