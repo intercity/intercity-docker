@@ -1,5 +1,6 @@
 templates:
   - "templates/postgres.template.yml"
+  - "templates/redis.template.yml"
   - "templates/web.template.yml"
 
 expose:
