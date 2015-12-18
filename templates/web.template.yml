@@ -172,3 +172,10 @@ run:
           mkdir -p /shared/backups
           chown -R intercity:www-data /shared/backups
         fi
+
+hooks:
+  after_bundle_exec:
+    - cd: $home
+    - cmd:
+      - "whenever -c -f /var/www/intercity/config/backup_schedule.rb"
+
