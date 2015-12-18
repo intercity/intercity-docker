@@ -3,12 +3,15 @@ env:
   RACK_ENV: 'production'
   DB_SOCKET: /var/run/postgresql
   DB_NAME: intercity
-  SECRET_KEY_BASE: "superdupersecrettokenthatneedstochange"
+  SECRET_KEY_BASE: "secret_key_base"
+  HOSTNAME: "intercity.example.com"
 params:
   home: /var/www/intercity
   upload_size: 10m
 
 run:
+  - exec: /usr/local/bin/ruby -e 'if ENV["HOSTNAME"] == "intercity.example.com"; puts "Aborting! Domain is not configured!"; exit 1; end'
+  - exec: /usr/local/bin/ruby -e 'if ENV["SECRET_KEY_BASE"] == "secret_key_base"; puts "Aborting! Secret key base is not configured!"; exit 1; end'
   - file:
       path: /etc/runit/1.d/ensure-web-nginx-read
       chmod: "+x"

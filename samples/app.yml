@@ -9,6 +9,8 @@ expose:
   - "2222:22" # fwd host port 2222 to container port 22 (ssh)
 env:
   LANG: en_US.UTF-8
+  SECRET_KEY_BASE: "secret_key_base"
+  HOSTNAME: "intercity.example.com"
 
 params:
   # Which Git revision should container use?
