@@ -1,11 +1,11 @@
 # NAME:     intercity_base
-# VERSION:  0.1.0
+# VERSION:  0.1.1
 
 FROM ubuntu:14.04
 
 MAINTAINER Jeroen van Baarsen "https://twitter.com/jvanbaarsen"
 
-RUN echo "0.1.0" > /VERSION
+RUN echo "0.1.1" > /VERSION
 
 # Install dependencies
 RUN apt-get -y upgrade &&\
@@ -28,10 +28,11 @@ RUN echo 'gem: --no-document' >> /usr/local/etc/gemrc &&\
        mkdir /src && cd /src &&\
        git clone https://github.com/sstephenson/ruby-build.git &&\
        cd /src/ruby-build && ./install.sh &&\
-       cd / && rm -rf /src/ruby-build && ruby-build 2.2.3 /usr/local &&\
+       cd / && rm -rf /src/ruby-build && ruby-build 2.2.4 /usr/local &&\
        gem update --system &&\
        gem install bundler &&\
-       rm -rf /usr/local/share/ri/2.2.3/system
+       gem install backup &&\
+       rm -rf /usr/local/share/ri/2.2.4/system
 
 # Install Pups
 RUN cd / && git clone https://github.com/SamSaffron/pups.git

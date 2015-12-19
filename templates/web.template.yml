@@ -125,7 +125,7 @@ run:
         - su intercity -c 'bundle exec rake db:migrate'
         - su intercity -c 'bundle exec rake assets:precompile'
         - su intercity -c 'bundle exec rake intercity:seed_plugins'
-        - su intercity -c 'bundle exec whenever -c -f /var/www/intercity/config/backup_schedule.rb'
+        - su intercity -c 'bundle exec whenever -w -f /var/www/intercity/config/backup_schedule.rb'
 
   - file:
      path: /usr/local/bin/rails
