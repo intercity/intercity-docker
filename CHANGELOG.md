@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Changed
+- Nothing yet
+
+## [0.2.0] = 2016-01-04
+
+### Changed
 
 - Updated to ruby 2.3
 
@@ -12,4 +17,5 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Initial release
 
-[Unreleased]: https://github.com/intercity/intercity-docker/compare/v0.1.0-beta...HEAD
+[Unreleased]: https://github.com/intercity/intercity-docker/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/intercity/intercity-docker/compare/v0.1.0-beta...v0.2.0
