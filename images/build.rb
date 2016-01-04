@@ -1,8 +1,6 @@
-# simple build file to be used locally by Jeroen
-#
 require 'pty'
 
-$version = "0.1.1"
+$version = "0.2.0"
 
 $base_image = "intercity/base:#{$version}"
 $image = "intercity/intercity:#{$version}"
