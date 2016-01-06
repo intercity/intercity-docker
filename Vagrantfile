@@ -1,7 +1,7 @@
 BOX_NAME = ENV["BOX_NAME"] || "bento/ubuntu-14.04"
 BOX_MEMORY = ENV["BOX_MEMORY"] || 2048
 BOX_IP = ENV["BOX_IP"] || "10.0.0.4"
-FORWARDED_PORT = (ENV["FORWARDED_PORT"] || '8080').to_i
+FORWARDED_PORT = (ENV["FORWARDED_PORT"] || '8081').to_i
 
 Vagrant.configure(2) do |config|
   config.vm.box = BOX_NAME

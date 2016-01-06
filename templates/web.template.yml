@@ -70,11 +70,13 @@ run:
         - mkdir -p tmp/sockets
         - touch tmp/.gitkeep
         - mkdir -p                    /shared/log/rails
+        - mkdir -p /shared/backups/apps
         - bash -c "touch -a           /shared/log/rails/{production,production_errors,puma.stdout,puma.stderr}.log"
         - bash -c "ln    -s           /shared/log/rails/{production,production_errors,puma.stdout,puma.stderr}.log $home/log"
         - bash -c "mkdir -p           /shared/{uploads,backups}"
         - bash -c "ln    -s           /shared/{uploads,backups} $home/public"
-        - chown -R intercity:www-data /shared/log/rails /shared/uploads /shared/backups
+        - bash -c "ln -s /shared/backups/apps $home/backups"
+        - chown -R intercity:www-data /shared/log/rails /shared/uploads /shared/backups /shared/backups/apps
 
   - exec:
       cmd:
@@ -172,4 +174,9 @@ run:
         if [[ ! -d /shared/backups ]]; then
           mkdir -p /shared/backups
           chown -R intercity:www-data /shared/backups
+        fi
+        if [[ ! -d /shared/backups/apps ]]; then
+          mkdir -p /shared/backups/apps
+          chown -R intercity:www-data /shared/backups/apps
+          ln -s /shared/backups/apps /var/www/intercity/backups/
         fi

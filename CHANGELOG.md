@@ -4,8 +4,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Symlink the Intercity Backup directory (See https://github.com/intercity/intercity-next/pull/42)
+
 ### Changed
-- Nothing yet
+- Log sidekiq output to $app/log/sidekiq.log
+
+### Fixed
+- Bumped the Docker image version in the launcher
 
 ## [0.2.0] = 2016-01-04
 
