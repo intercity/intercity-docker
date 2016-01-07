@@ -2,7 +2,7 @@
 
 app_name=intercity
 app_path="/var/$app_name"
-image=intercity/intercity:0.1.1
+image=intercity/intercity:0.2.0
 
 command=$1
 config=$2
