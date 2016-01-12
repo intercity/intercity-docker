@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Symlink the Intercity Backup directory (See https://github.com/intercity/intercity-next/pull/42)
+- FROM_EMAIL env var, used for all the emails send out by IC.
 
 ### Changed
 - Log sidekiq output to $app/log/sidekiq.log
