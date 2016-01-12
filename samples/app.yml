@@ -11,6 +11,7 @@ env:
   LANG: en_US.UTF-8
   SECRET_KEY_BASE: "secret_key_base"
   HOSTNAME: "intercity.example.com"
+  FROM_EMAIL: "example@example.com"
 
 params:
   # Which Git revision should container use?
