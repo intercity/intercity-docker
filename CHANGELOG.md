@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - Log sidekiq output to $app/log/sidekiq.log
+- Sidekiq config has been moved to the intercity/intercity-next repo. (see https://github.com/intercity/intercity-next/pull/63)
 
 ### Fixed
 - Bumped the Docker image version in the launcher
