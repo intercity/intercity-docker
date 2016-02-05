@@ -1,11 +1,11 @@
 # NAME:     intercity_base
-# VERSION:  0.2.0
+# VERSION:  0.2.1
 
 FROM ubuntu:14.04
 
 MAINTAINER Jeroen van Baarsen "https://twitter.com/jvanbaarsen"
 
-RUN echo "0.2.0" > /VERSION
+RUN echo "0.2.1" > /VERSION
 
 # Install dependencies
 RUN apt-get -y upgrade &&\
@@ -15,7 +15,7 @@ RUN apt-get -y upgrade &&\
     apt-get -y install build-essential git curl wget \
       libxslt-dev libcurl4-openssl-dev \
       libssl-dev libyaml-dev libtool \
-      libxml2-dev redis-server \
+      libxml2-dev redis-server sendmail \
       postgresql-9.3 postgresql-client-9.3 \
       postgresql-contrib-9.3 libpq-dev libreadline-dev \
       nginx vim nodejs openssh-server runit &&\

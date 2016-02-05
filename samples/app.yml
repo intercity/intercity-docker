@@ -13,6 +13,13 @@ env:
   HOSTNAME: "intercity.example.com"
   FROM_EMAIL: "example@example.com"
 
+  SMTP_ADDRESS: smtp.example.com         # (mandatory)
+  #SMTP_PORT: 587                        # (optional)
+  #SMTP_USER_NAME: user@example.com      # (optional)
+  #SMTP_PASSWORD: pa$$word               # (optional, WARNING the char '#' in pw can cause problems!)
+  #SMTP_ENABLE_START_TLS: true           # (optional, default true)
+  #SMTP_DOMAIN:                          # (optional, If not provided we use the HOSTNAME)
+
 params:
   # Which Git revision should container use?
   version: master
