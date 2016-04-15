@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+- Remove SECRET_KEY_BASE since it has been moved to intercity-next repo (jvanbaarsen)
 - Symlink the Intercity Backup directory (See https://github.com/intercity/intercity-next/pull/42)
 - FROM_EMAIL env var, used for all the emails send out by IC.
 - Install Sendmail
