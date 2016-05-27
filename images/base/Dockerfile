@@ -9,9 +9,9 @@ RUN echo "0.3.0" > /VERSION
 
 # Install dependencies
 RUN apt-get -y upgrade &&\
+    apt-get -y update &&\
     apt-get -y install software-properties-common &&\
     add-apt-repository -y ppa:rwky/redis &&\
-    apt-get -y update &&\
     apt-get -y install build-essential git curl wget \
       libxslt-dev libcurl4-openssl-dev \
       libssl-dev libyaml-dev libtool \
