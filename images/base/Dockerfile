@@ -1,17 +1,17 @@
 # NAME:     intercity_base
-# VERSION:  0.2.1
+# VERSION:  0.3.0
 
 FROM ubuntu:14.04
 
 MAINTAINER Jeroen van Baarsen "https://twitter.com/jvanbaarsen"
 
-RUN echo "0.2.1" > /VERSION
+RUN echo "0.3.0" > /VERSION
 
 # Install dependencies
 RUN apt-get -y upgrade &&\
+    apt-get -y update &&\
     apt-get -y install software-properties-common &&\
     add-apt-repository -y ppa:rwky/redis &&\
-    apt-get -y update &&\
     apt-get -y install build-essential git curl wget \
       libxslt-dev libcurl4-openssl-dev \
       libssl-dev libyaml-dev libtool \
