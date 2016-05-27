@@ -2,6 +2,7 @@ BOX_NAME = ENV["BOX_NAME"] || "bento/ubuntu-14.04"
 BOX_MEMORY = ENV["BOX_MEMORY"] || 2048
 BOX_IP = ENV["BOX_IP"] || "10.0.0.4"
 FORWARDED_PORT = (ENV["FORWARDED_PORT"] || '8081').to_i
+FORWARDED_SSL_PORT = (ENV["FORWARDED_SSL_PORT"] || '8443').to_i
 
 Vagrant.configure(2) do |config|
   config.vm.box = BOX_NAME
@@ -16,6 +17,8 @@ Vagrant.configure(2) do |config|
 
   config.vm.define :docker, primary: true do |config|
     config.vm.network :forwarded_port, guest: 80, host: FORWARDED_PORT
+    config.vm.network :forwarded_port, guest: 443, host: FORWARDED_SSL_PORT
+
     config.vm.network :private_network, ip: BOX_IP
     config.vm.provision "shell", inline: <<-EOF
       set -e
