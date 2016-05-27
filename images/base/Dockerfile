@@ -1,11 +1,11 @@
 # NAME:     intercity_base
-# VERSION:  0.2.1
+# VERSION:  0.3.0
 
 FROM ubuntu:14.04
 
 MAINTAINER Jeroen van Baarsen "https://twitter.com/jvanbaarsen"
 
-RUN echo "0.2.1" > /VERSION
+RUN echo "0.3.0" > /VERSION
 
 # Install dependencies
 RUN apt-get -y upgrade &&\
