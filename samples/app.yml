@@ -3,10 +3,12 @@ templates:
   - "templates/redis.template.yml"
   - "templates/sidekiq.template.yml"
   - "templates/web.template.yml"
+  #- "templates/web.ssl.template.yml"
 
 expose:
   - "80:80"   # fwd host port 80   to container port 80 (http)
   - "2222:22" # fwd host port 2222 to container port 22 (ssh)
+  #- "443:443" # fwd host port 443 to container port 443 (https)
 env:
   LANG: en_US.UTF-8
   HOSTNAME: "intercity.example.com"

@@ -1,4 +1,7 @@
 .vagrant/
 containers/*
 shared/*
+shared/ssl/*.crt
+shared/ssl/*.key
+!shared/ssl/
 cids/*
