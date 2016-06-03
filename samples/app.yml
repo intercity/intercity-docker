@@ -4,11 +4,12 @@ templates:
   - "templates/sidekiq.template.yml"
   - "templates/web.template.yml"
   #- "templates/web.ssl.template.yml"
+  #- "templates/web.letsencryp.ssl.template.yml"
 
 expose:
   - "80:80"   # fwd host port 80   to container port 80 (http)
   - "2222:22" # fwd host port 2222 to container port 22 (ssh)
-  #- "443:443" # fwd host port 443 to container port 443 (https)
+  - "443:443" # fwd host port 443 to container port 443 (https)
 env:
   LANG: en_US.UTF-8
   HOSTNAME: "intercity.example.com"
@@ -20,6 +21,8 @@ env:
   #SMTP_PASSWORD: pa$$word               # (optional, WARNING the char '#' in pw can cause problems!)
   #SMTP_ENABLE_START_TLS: true           # (optional, default true)
   #SMTP_DOMAIN:                          # (optional, If not provided we use the HOSTNAME)
+
+  #LETSENCRYPT_ACCOUNT_EMAIL: "youremail"
 
 params:
   # Which Git revision should container use?
