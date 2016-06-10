@@ -3,7 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
-* Add support for running Intercity behind HTTPS
+* Add support for running Intercity behind HTTPS (jvanbaarsen)
+* Add support for Letsencrypt based HTTPS (jvanbaarsen)
 
 ## [0.3.0] - 2016-05-27
 * Symlink the Intercity Backup directory (See https://github.com/intercity/intercity-next/pull/42)

@@ -5,3 +5,4 @@ shared/ssl/*.crt
 shared/ssl/*.key
 !shared/ssl/
 cids/*
+tmp/
