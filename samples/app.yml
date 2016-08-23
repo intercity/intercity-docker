@@ -13,7 +13,6 @@ expose:
 env:
   LANG: en_US.UTF-8
   HOSTNAME: "intercity.example.com"
-  FROM_EMAIL: "example@example.com"
 
   SMTP_ADDRESS: smtp.example.com         # (mandatory)
   #SMTP_PORT: 587                        # (optional)
