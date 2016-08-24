@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## [0.4.0] - 2016-08-27
 * Add support for running Intercity behind HTTPS (jvanbaarsen)
 * Add support for Letsencrypt based HTTPS (jvanbaarsen)
 * Removed the FROM_EMAIL env var, since this is now configured in the IC interface (jvanbaarsen)
