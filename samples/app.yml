@@ -14,13 +14,6 @@ env:
   LANG: en_US.UTF-8
   HOSTNAME: "intercity.example.com"
 
-  SMTP_ADDRESS: smtp.example.com         # (mandatory)
-  #SMTP_PORT: 587                        # (optional)
-  #SMTP_USER_NAME: user@example.com      # (optional)
-  #SMTP_PASSWORD: pa$$word               # (optional, WARNING the char '#' in pw can cause problems!)
-  #SMTP_ENABLE_START_TLS: true           # (optional, default true)
-  #SMTP_DOMAIN:                          # (optional, If not provided we use the HOSTNAME)
-
   #LETSENCRYPT_ACCOUNT_EMAIL: "youremail"
 
 params:

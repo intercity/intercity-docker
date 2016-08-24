@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Add support for running Intercity behind HTTPS (jvanbaarsen)
 * Add support for Letsencrypt based HTTPS (jvanbaarsen)
 * Removed the FROM_EMAIL env var, since this is now configured in the IC interface (jvanbaarsen)
+* Removed the SMTP env vars, they are moved to the IC interface (jvanbaarsen)
 
 ## [0.3.0] - 2016-05-27
 * Symlink the Intercity Backup directory (See https://github.com/intercity/intercity-next/pull/42)
