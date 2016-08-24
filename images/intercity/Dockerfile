@@ -1,4 +1,4 @@
-FROM intercity/base:0.3.0
+FROM intercity/base:0.4.0
 
 MAINTAINER Jeroen van Baarsen "https://twitter.com/jvanbaarsen"
 

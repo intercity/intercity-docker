@@ -1,6 +1,6 @@
 require 'pty'
 
-$version = "0.3.0"
+$version = "0.4.0"
 
 $base_image = "intercity/base:#{$version}"
 $image = "intercity/intercity:#{$version}"
