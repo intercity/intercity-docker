@@ -4,7 +4,7 @@ templates:
   - "templates/sidekiq.template.yml"
   - "templates/web.template.yml"
   #- "templates/web.ssl.template.yml"
-  #- "templates/web.letsencryp.ssl.template.yml"
+  #- "templates/web.letsencrypt.ssl.template.yml"
 
 expose:
   - "80:80"   # fwd host port 80   to container port 80 (http)
@@ -13,8 +13,7 @@ expose:
 env:
   LANG: en_US.UTF-8
   HOSTNAME: "intercity.example.com"
-
-  #LETSENCRYPT_ACCOUNT_EMAIL: "youremail"
+  LETSENCRYPT_ACCOUNT_EMAIL: "example@example.com"
 
 params:
   # Which Git revision should container use?
