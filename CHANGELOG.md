@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.4.1] - Unreleased
 * Fix typo in letsencrypt email template
+* Update Letsencrypt acme client to latest version
 
 ## [0.4.0] - 2016-08-27
 * Add support for running Intercity behind HTTPS (jvanbaarsen)
