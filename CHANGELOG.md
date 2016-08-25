@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.1] - Unreleased
+* Fix typo in letsencrypt email template
+
 ## [0.4.0] - 2016-08-27
 * Add support for running Intercity behind HTTPS (jvanbaarsen)
 * Add support for Letsencrypt based HTTPS (jvanbaarsen)
