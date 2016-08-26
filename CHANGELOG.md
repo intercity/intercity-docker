@@ -2,11 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.4.1] - Unreleased
+## [0.4.1] - 2016-08-26
 * Fix typo in letsencrypt email template
 * Update Letsencrypt acme client to latest version
 
-## [0.4.0] - 2016-08-27
+## [0.4.0] - 2016-08-24
 * Add support for running Intercity behind HTTPS (jvanbaarsen)
 * Add support for Letsencrypt based HTTPS (jvanbaarsen)
 * Removed the FROM_EMAIL env var, since this is now configured in the IC interface (jvanbaarsen)
