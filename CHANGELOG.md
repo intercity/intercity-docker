@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.2] - 2016-09-02
+* Install stable version of Intercity
+
 ## [0.4.1] - 2016-08-26
 * Fix typo in letsencrypt email template
 * Update Letsencrypt acme client to latest version
