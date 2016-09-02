@@ -17,7 +17,7 @@ env:
 
 params:
   # Which Git revision should container use?
-  version: master
+  version: stable
 
 ## These containers are stateless, all data is stored in /shared
 volumes:
